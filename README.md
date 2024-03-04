@@ -52,3 +52,9 @@ These scenarios illustrate how each key feature enhances the usability and funct
      **When** I navigate to the charts or statistics section,
      **Then** I should be presented with visual representations of event data, such as charts illustrating distribution by category, time, and location.
 
+
+
+   ##  Utilizing serverless functions:
+
+Incorporating serverless functions into your system will handle tasks like securely managing user access, acquiring and updating OAuth2 tokens, and guaranteeing the safety of communications between your React application and the Google Calendar API. Embracing the serverless architecture brings advantages such as seamless scalability, optimal resource utilization, and cost efficiency, given that you only incur expenses for function execution rather than maintaining a fixed server infrastructure.
+
