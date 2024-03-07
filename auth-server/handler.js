@@ -6,7 +6,7 @@ const SCOPES = [
   "https://www.googleapis.com/auth/calendar.events.public.readonly",
 ];
 const { CLIENT_SECRET, CLIENT_ID, CALENDAR_ID } = process.env;
-const redirect_uris = ["https://JoudHasan.github.io/meet/"];
+const redirect_uris = ["https://joudHasan.github.io/meet"];
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
@@ -15,9 +15,6 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 module.exports.getAuthURL = async () => {
-  /**
-   * Scopes array is passed to the `scope` option.
-   */
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: "offline",
     scope: SCOPES,
