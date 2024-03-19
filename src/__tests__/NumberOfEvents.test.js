@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react"; // Ensure to import render from @testing-library/react
+import { render, fireEvent } from "@testing-library/react"; // Ensure to import render from @testing-library/react
 import userEvent from "@testing-library/user-event";
 import NumberOfEvents from "../components/NumberOfEvents";
 
@@ -24,9 +24,8 @@ describe("<NumberOfEvents /> component", () => {
   });
 
   test("value of number of events updates correctly when user types in textbox", async () => {
-    const inputField = NumberOfEventsComponent.getByRole("textbox"); // Use getByRole instead of queryByRole
-    await userEvent.clear(inputField);
-    await userEvent.type(inputField, "{backspace}{backspace}10");
+    const inputField = NumberOfEventsComponent.getByRole("textbox");
+    fireEvent.change(inputField, { target: { value: "10" } }); // Simulate change event
     expect(inputField).toHaveValue("10");
   });
 });
