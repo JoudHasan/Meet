@@ -1,19 +1,25 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from "react";
-import { render } from "@testing-library/react";
+import {
+  fireEvent,
+  getByPlaceholderText,
+  render,
+  screen,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CitySearch from "../components/CitySearch";
 import { extractLocations, getEvents } from "../api";
 
 describe("<CitySearch /> component", () => {
   let CitySearchComponent;
-  const user = userEvent.setup();
-
   beforeEach(() => {
-    CitySearchComponent = render(<CitySearch allLocations={[]} />);
+    CitySearchComponent = render(<CitySearch />);
   });
-
   test("renders text input", () => {
-    const cityTextBox = CitySearchComponent.getByRole("textbox");
+    const cityTextBox = CitySearchComponent.queryByRole("textbox");
     expect(cityTextBox).toBeInTheDocument();
     expect(cityTextBox).toHaveClass("city");
   });
@@ -24,28 +30,35 @@ describe("<CitySearch /> component", () => {
   });
 
   test("renders a list of suggestions when city textbox gains focus", async () => {
-    const cityTextBox = CitySearchComponent.getByRole("textbox");
-    user.click(cityTextBox);
+    const user = userEvent.setup();
+    const cityTextBox = CitySearchComponent.queryByRole("textbox");
+    await user.click(cityTextBox);
     const suggestionList = CitySearchComponent.queryByRole("list");
     expect(suggestionList).toBeInTheDocument();
     expect(suggestionList).toHaveClass("suggestions");
   });
 
   test("updates list of suggestions correctly when user types in city textbox", async () => {
-    const allEvents = await getEvents();
-    const allLocations = extractLocations(allEvents);
+    const user = userEvent.setup();
+    const allEvents = await getEvents(); //variable that contains the list of all events
+    const allLocations = extractLocations(allEvents); // contains the set of all possible locations that will be extracted from allEvents
     CitySearchComponent.rerender(<CitySearch allLocations={allLocations} />);
 
-    const cityTextBox = CitySearchComponent.getByRole("textbox");
-    user.type(cityTextBox, "Berlin");
+    //user types "Berlin" in city textbox
+    const cityTextBox = CitySearchComponent.queryByRole("textbox");
+    await user.type(cityTextBox, "Berlin");
 
+    //filter allLocations to locations matching "Berlin"
     const suggestions = allLocations
-      ? allLocations.filter((location) =>
-          location.toUpperCase().includes(cityTextBox.value.toUpperCase())
-        )
+      ? allLocations.filter((location) => {
+          return (
+            location.toUpperCase().indexOf(cityTextBox.value.toUpperCase()) > -1
+          );
+        })
       : [];
 
-    const suggestionListItems = CitySearchComponent.getAllByRole("listitem");
+    // get all <li> elements inside the suggestion list
+    const suggestionListItems = CitySearchComponent.queryAllByRole("listitem");
     expect(suggestionListItems).toHaveLength(suggestions.length + 1);
     for (let i = 0; i < suggestions.length; i += 1) {
       expect(suggestionListItems[i].textContent).toBe(suggestions[i]);
@@ -53,16 +66,19 @@ describe("<CitySearch /> component", () => {
   });
 
   test("renders the suggestion text in the textbox upon clicking on the suggestion", async () => {
+    const user = userEvent.setup();
     const allEvents = await getEvents();
     const allLocations = extractLocations(allEvents);
     CitySearchComponent.rerender(<CitySearch allLocations={allLocations} />);
 
-    const cityTextBox = CitySearchComponent.getByRole("textbox");
-    user.type(cityTextBox, "Berlin");
+    const cityTextBox = CitySearchComponent.queryByRole("textbox");
+    await user.type(cityTextBox, "Berlin");
 
+    //the suggestion's textContent look like this: "Berlin, Germany"
     const BerlinGermanySuggestion =
-      CitySearchComponent.getAllByRole("listitem")[0];
-    user.click(BerlinGermanySuggestion);
+      CitySearchComponent.queryAllByRole("listitem")[0];
+
+    await user.click(BerlinGermanySuggestion);
 
     expect(cityTextBox).toHaveValue(BerlinGermanySuggestion.textContent);
   });

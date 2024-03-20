@@ -1,10 +1,13 @@
-import React from "react";
-import { useState } from "react";
+// src/components/CitySearch.js
 
+import { useState } from "react";
+import React from "react";
 const CitySearch = ({ allLocations }) => {
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
+  //obtain current value of input field, filter allLocations array, set Query local state to the input value, set suggestions local state to the filtered locations array
   const handleInputChanged = (event) => {
     const value = event.target.value;
     const filteredLocations = allLocations
@@ -20,11 +23,7 @@ const CitySearch = ({ allLocations }) => {
   const handleItemClicked = (event) => {
     const value = event.target.textContent;
     setQuery(value);
-    setSuggestions([]); // Clear suggestions
-  };
-
-  const handleFocus = () => {
-    setSuggestions(query ? allLocations : []);
+    setShowSuggestions(false); //this will hide the suggestions list
   };
 
   return (
@@ -34,21 +33,23 @@ const CitySearch = ({ allLocations }) => {
         className="city"
         placeholder="Search for a city"
         value={query}
-        onFocus={handleFocus}
+        onFocus={() => setShowSuggestions(true)}
         onChange={handleInputChanged}
       />
-      {suggestions.length > 0 && (
+      {showSuggestions ? (
         <ul className="suggestions">
-          {suggestions.map((suggestion, index) => (
-            <li onClick={handleItemClicked} key={index}>
-              {suggestion}
-            </li>
-          ))}
-          <li onClick={handleItemClicked} key="See all cities">
+          {suggestions.map((suggestion) => {
+            return (
+              <li onClick={handleItemClicked} key={suggestion}>
+                {suggestion}
+              </li>
+            );
+          })}
+          <li key="See all cities" onClick={handleItemClicked}>
             <b>See all cities</b>
           </li>
         </ul>
-      )}
+      ) : null}
     </div>
   );
 };
