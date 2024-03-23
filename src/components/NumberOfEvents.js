@@ -1,30 +1,27 @@
 import React from "react";
-import { useState } from "react";
 
 const NumberOfEvents = ({ setCurrentNOE, setErrorAlert }) => {
-  const [numEvents, setNumEvents] = useState("32");
-
   const handleInputChanged = (event) => {
     const value = event.target.value;
-    setNumEvents(value);
-
-    let infoText;
+    console.log("Number is:", value);
+    setCurrentNOE(value);
+    let errorText;
     if (isNaN(value) || value <= 0) {
-      infoText = "Only positive numbers are allowed";
+      errorText = "Minimum 1 is required";
+      setErrorAlert(errorText);
     } else {
-      infoText = "";
       setCurrentNOE(value);
+      errorText = "";
+      setErrorAlert(errorText);
     }
-    setErrorAlert(infoText);
   };
-
   return (
     <div id="number-of-events">
-      <label htmlFor="number-of-events-input">Number of Events: </label>
       <input
+        data-testid="numberOfEventsInput"
         type="text"
-        className="number-of-events-input"
-        value={numEvents}
+        className="textboxNumber"
+        defaultValue="32"
         onChange={handleInputChanged}
       />
     </div>
