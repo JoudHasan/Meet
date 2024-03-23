@@ -4,17 +4,14 @@ const NumberOfEvents = ({ setCurrentNOE, setErrorAlert }) => {
   const handleInputChanged = (event) => {
     const value = event.target.value;
     console.log("Number is:", value);
-    setCurrentNOE(value);
-    let errorText;
     if (isNaN(value) || value <= 0) {
-      errorText = "Minimum 1 is required";
-      setErrorAlert(errorText);
+      setErrorAlert("Minimum 1 is required");
     } else {
       setCurrentNOE(value);
-      errorText = "";
-      setErrorAlert(errorText);
+      setErrorAlert("");
     }
   };
+
   return (
     <div id="number-of-events">
       <input

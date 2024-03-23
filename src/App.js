@@ -6,7 +6,6 @@ import EventList from "./components/EventList";
 import NumberOfEvents from "./components/NumberOfEvents";
 import { extractLocations, getEvents } from "./api";
 import "./App.css";
-
 const App = () => {
   const [events, setEvents] = useState([]);
   const [currentNOE, setCurrentNOE] = useState(32);
@@ -26,10 +25,23 @@ const App = () => {
     setEvents(filteredEvents.slice(0, currentNOE));
     setAllLocations(extractLocations(allEvents));
   };
+
+  const handleNumberOfEventsChange = (numberOfEvents) => {
+    setCurrentNOE(numberOfEvents);
+  };
+
+  const setErrorAlert = (errorText) => {
+    // Define your logic for displaying an error alert here
+    console.error("Error:", errorText);
+  };
+
   return (
     <div className="App">
       <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
-      <NumberOfEvents />
+      <NumberOfEvents
+        setCurrentNOE={handleNumberOfEventsChange}
+        setErrorAlert={setErrorAlert} // Pass setErrorAlert as a prop
+      />
       <EventList events={events} />
     </div>
   );
