@@ -1,11 +1,11 @@
 import React from "react";
-// src/App.js
 import { useEffect, useState } from "react";
 import CitySearch from "./components/CitySearch";
 import EventList from "./components/EventList";
 import NumberOfEvents from "./components/NumberOfEvents";
 import { extractLocations, getEvents } from "./api";
 import "./App.css";
+
 const App = () => {
   const [events, setEvents] = useState([]);
   const [currentNOE, setCurrentNOE] = useState(32);
@@ -37,12 +37,19 @@ const App = () => {
 
   return (
     <div className="App">
-      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
+      <CitySearch
+        allLocations={allLocations}
+        setCurrentCity={setCurrentCity}
+        className="city" // Add the .city class here
+      />
       <NumberOfEvents
         setCurrentNOE={handleNumberOfEventsChange}
-        setErrorAlert={setErrorAlert} // Pass setErrorAlert as a prop
+        setErrorAlert={setErrorAlert}
       />
-      <EventList events={events} />
+      <EventList
+        events={events}
+        className="event" // Add the .event class here
+      />
     </div>
   );
 };
