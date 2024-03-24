@@ -31,7 +31,6 @@ const App = () => {
   };
 
   const setErrorAlert = (errorText) => {
-    // Define your logic for displaying an error alert here
     console.error("Error:", errorText);
   };
 
@@ -40,16 +39,13 @@ const App = () => {
       <CitySearch
         allLocations={allLocations}
         setCurrentCity={setCurrentCity}
-        className="city" // Add the .city class here
+        className="city"
       />
       <NumberOfEvents
         setCurrentNOE={handleNumberOfEventsChange}
         setErrorAlert={setErrorAlert}
       />
-      <EventList
-        events={events}
-        className="event" // Add the .event class here
-      />
+      <EventList events={events} className="event" />
     </div>
   );
 };
