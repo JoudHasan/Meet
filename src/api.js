@@ -23,7 +23,10 @@ export const getEvents = async () => {
   if (!accessToken) {
     return null; // Return null if access token is not available
   }
-
+  const tokken = await getAccessToken();
+  if (!tokken) {
+    return null;
+  }
   try {
     const tokenCheck = await checkToken(accessToken);
     if (tokenCheck.error) {
