@@ -6,8 +6,6 @@ App {
   background-color: black;
   color: darkgoldenrod;
   font-family: "Roboto", sans-serif;
-  background-color: rgb(1, 63, 1);
-  color: white;
 }
 .App * {
   box-sizing: border-box;
