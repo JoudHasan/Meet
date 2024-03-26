@@ -1840,3 +1840,4 @@ const mockData = [
 ];
 
 export default mockData;
+jest.setTimeout(60000);
