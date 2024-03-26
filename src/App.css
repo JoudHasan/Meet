@@ -1,12 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:500);
-.App {
+App {
   text-align: center;
   padding: 2% 5%;
+
   background-color: black;
   color: darkgoldenrod;
   font-family: "Roboto", sans-serif;
 }
-
 .App * {
   box-sizing: border-box;
 }
