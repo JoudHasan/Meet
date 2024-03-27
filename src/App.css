@@ -1,18 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:500);
-App {
+.App {
   text-align: center;
   padding: 2% 5%;
-
   background-color: black;
   color: darkgoldenrod;
-  font-family: "Roboto", sans-serif;
 }
+
 .App * {
   box-sizing: border-box;
 }
 
 ul {
-  padding: 0;
+  padding: 10%;
   list-style: none;
 }
 
@@ -28,13 +27,12 @@ input[type="number"] {
   border: 1px solid rgb(1, 2, 1);
   font-size: 14px;
   line-height: 20px;
-  align-self: center;
   height: 38px;
-  margin-bottom: 20px;
   background-color: whitesmoke;
   color: black;
+  margin: 0 auto; /* Center the input box horizontally */
+  display: block; /* Ensure the margin:auto works */
 }
-
 .city {
   width: 250px;
 }
@@ -58,11 +56,29 @@ input[type="number"] {
   box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
 
+#city-search {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  position: relative;
+}
+.suggestions {
+  width: 250px;
+  position: absolute;
+  top: 45px;
+  z-index: 2;
+  align-self: center;
+  margin: 0;
+  font-size: 14px;
+  box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
+}
+
 .suggestions > li {
   text-align: left;
   padding: 8px 6px 8px 10px;
-  background-color: #eee;
+  background-color: var(--color-background);
   cursor: default;
+  transition: filter 0.5s;
 }
 
 .suggestions > li:last-child {
@@ -71,7 +87,7 @@ input[type="number"] {
 }
 
 .suggestions > li:hover {
-  background-color: #bcdcdb;
+  filter: brightness(1.5);
 }
 
 .event {
