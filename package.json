@@ -56,6 +56,6 @@
   "devDependencies": {
     "gh-pages": "^6.1.1",
     "jest-cucumber": "^4.0.4",
-    "puppeteer": "22.6.1"
+    "puppeteer": "^22.6.1"
   }
 }
