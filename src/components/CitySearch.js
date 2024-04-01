@@ -1,8 +1,8 @@
 // src/components/CitySearch.js
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import React from "react";
-const CitySearch = ({ allLocations, setCurrentCity }) => {
+const CitySearch = ({ allLocations }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -23,13 +23,8 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
   const handleItemClicked = (event) => {
     const value = event.target.textContent;
     setQuery(value);
-    setShowSuggestions(false);
-    setCurrentCity(value);
+    setShowSuggestions(false); //this will hide the suggestions list
   };
-
-  useEffect(() => {
-    setSuggestions(allLocations);
-  }, [`${allLocations}`]);
 
   return (
     <div id="city-search">

@@ -8,17 +8,15 @@ import {
   getByPlaceholderText,
   render,
   screen,
-  within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CitySearch from "../components/CitySearch";
 import { extractLocations, getEvents } from "../api";
-import App from "../App";
 
 describe("<CitySearch /> component", () => {
   let CitySearchComponent;
   beforeEach(() => {
-    CitySearchComponent = render(<CitySearch allLocations={[]} />);
+    CitySearchComponent = render(<CitySearch />);
   });
   test("renders text input", () => {
     const cityTextBox = CitySearchComponent.queryByRole("textbox");
@@ -71,9 +69,7 @@ describe("<CitySearch /> component", () => {
     const user = userEvent.setup();
     const allEvents = await getEvents();
     const allLocations = extractLocations(allEvents);
-    CitySearchComponent.rerender(
-      <CitySearch allLocations={allLocations} setCurrentCity={() => {}} />
-    );
+    CitySearchComponent.rerender(<CitySearch allLocations={allLocations} />);
 
     const cityTextBox = CitySearchComponent.queryByRole("textbox");
     await user.type(cityTextBox, "Berlin");
@@ -85,23 +81,5 @@ describe("<CitySearch /> component", () => {
     await user.click(BerlinGermanySuggestion);
 
     expect(cityTextBox).toHaveValue(BerlinGermanySuggestion.textContent);
-  });
-  describe("<CitySearch /> integration", () => {
-    test("renders suggestions list when the app is rendered.", async () => {
-      const user = userEvent.setup();
-      const AppComponent = render(<App />);
-      const AppDOM = AppComponent.container.firstChild;
-
-      const CitySearchDOM = AppDOM.querySelector("#city-search");
-      const cityTextBox = within(CitySearchDOM).queryByRole("textbox");
-      await user.click(cityTextBox);
-
-      const allEvents = await getEvents();
-      const allLocations = extractLocations(allEvents);
-
-      const suggestionListItems =
-        within(CitySearchDOM).queryAllByRole("listitem");
-      expect(suggestionListItems.length).toBe(allLocations.length + 1);
-    });
   });
 });
