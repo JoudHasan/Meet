@@ -1,13 +1,10 @@
-// src/components/CitySearch.js
+import React, { useState, useEffect } from "react";
 
-import { useState, useEffect } from "react";
-import React from "react";
 const CitySearch = ({ allLocations, setCurrentCity }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
-  //obtain current value of input field, filter allLocations array, set Query local state to the input value, set suggestions local state to the filtered locations array
   const handleInputChanged = (event) => {
     const value = event.target.value;
     const filteredLocations = allLocations
@@ -29,7 +26,7 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
 
   useEffect(() => {
     setSuggestions(allLocations);
-  }, [`${allLocations}`]);
+  }, [allLocations]);
 
   return (
     <div id="city-search">

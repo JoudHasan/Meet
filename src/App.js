@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CitySearch from "./components/CitySearch";
 import EventList from "./components/EventList";
 import NumberOfEvents from "./components/NumberOfEvents";
@@ -13,25 +12,25 @@ const App = () => {
   const [currentCity, setCurrentCity] = useState("See all cities");
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allEvents = await getEvents();
+        const filteredEvents =
+          currentCity === "See all cities"
+            ? allEvents
+            : allEvents.filter((event) => event.location === currentCity);
+        setEvents(filteredEvents.slice(0, currentNOE));
+        setAllLocations(extractLocations(allEvents));
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
     fetchData();
   }, [currentCity, currentNOE]);
 
-  const fetchData = async () => {
-    const allEvents = await getEvents();
-    const filteredEvents =
-      currentCity === "See all cities"
-        ? allEvents
-        : allEvents.filter((event) => event.location === currentCity);
-    setEvents(filteredEvents.slice(0, currentNOE));
-    setAllLocations(extractLocations(allEvents));
-  };
-
   const handleNumberOfEventsChange = (numberOfEvents) => {
     setCurrentNOE(numberOfEvents);
-  };
-
-  const setErrorAlert = (errorText) => {
-    console.error("Error:", errorText);
   };
 
   return (
@@ -43,7 +42,7 @@ const App = () => {
       />
       <NumberOfEvents
         setCurrentNOE={handleNumberOfEventsChange}
-        setErrorAlert={setErrorAlert}
+        setErrorAlert={console.error}
       />
       <EventList events={events} className="event" />
     </div>
