@@ -19,31 +19,19 @@ export const getEvents = async () => {
     return mockData;
   }
 
-  const accessToken = localStorage.getItem("access_token");
-  if (!accessToken) {
-    return null; // Return null if access token is not available
-  }
-  const tokken = await getAccessToken();
-  if (!tokken) {
-    return null;
-  }
-  try {
-    const tokenCheck = await checkToken(accessToken);
-    if (tokenCheck.error) {
-      throw new Error("Invalid access token");
-    }
+  const token = await getAccessToken();
 
+  if (token) {
     removeQuery();
     const url =
       "https://ak2tn6w38e.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" +
       "/" +
-      accessToken;
+      token;
     const response = await fetch(url);
     const result = await response.json();
-    return result.events || null; // Return fetched events or null if no events are fetched
-  } catch (error) {
-    console.error("Error fetching events:", error);
-    return null; // Return null if there's an error
+    if (result) {
+      return result.events;
+    } else return null;
   }
 };
 
@@ -78,19 +66,21 @@ const getToken = async (code) => {
 
 export const getAccessToken = async () => {
   const accessToken = localStorage.getItem("access_token");
-  if (!accessToken) {
+  const tokenCheck = accessToken && (await checkToken(accessToken));
+
+  if (!accessToken || tokenCheck.error) {
+    await localStorage.removeItem("access_token");
     const searchParams = new URLSearchParams(window.location.search);
-    const code = searchParams.get("code");
-    if (code) {
-      return getToken(code);
-    } else {
+    const code = await searchParams.get("code");
+    if (!code) {
       const response = await fetch(
         "https://ak2tn6w38e.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url"
       );
       const result = await response.json();
       const { authUrl } = result;
-      window.location.href = authUrl;
+      return (window.location.href = authUrl);
     }
+    return code && getToken(code);
   }
   return accessToken;
 };
