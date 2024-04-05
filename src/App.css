@@ -2,8 +2,8 @@
 .App {
   text-align: center;
   padding: 2% 5%;
-  background-color: rgb(9, 9, 9);
-  color: darkgoldenrod;
+  background-color: white;
+  color: green;
 }
 
 .App * {
@@ -19,20 +19,36 @@ p {
   margin: 5px 0;
 }
 
+/* Styling Input Fields with CSS */
 input[type="text"],
 input[type="number"] {
-  padding: 8px 6px 8px 10px;
-  border-radius: 4px;
+  padding: 10px;
+  border-radius: 8px;
   outline: none;
-  border: 1px solid rgb(1, 2, 1);
-  font-size: 14px;
-  line-height: 20px;
-  height: 38px;
-  background-color: whitesmoke;
-  color: darkgoldenrod;
-  margin: 0 auto; /* Center the input box horizontally */
+  border: 2px solid #ccc;
+  font-size: 16px;
+  line-height: 24px;
+  height: 48px;
+  background-color: #f5f5f5;
+  color: #333;
+  margin: 10px auto; /* Center the input box horizontally */
   display: block; /* Ensure the margin:auto works */
+  transition: border-color 0.3s ease;
 }
+
+/* Hover effect */
+input[type="text"]:hover,
+input[type="number"]:hover {
+  border-color: #999;
+}
+
+/* Focus effect */
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+}
+
 .city {
   width: 250px;
 }
