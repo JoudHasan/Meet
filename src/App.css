@@ -2,7 +2,7 @@
 .App {
   text-align: center;
   padding: 2% 5%;
-  background-color: rgb(3, 70, 3);
+  background-color: rgb(9, 9, 9);
   color: darkgoldenrod;
 }
 
@@ -29,7 +29,7 @@ input[type="number"] {
   line-height: 20px;
   height: 38px;
   background-color: whitesmoke;
-  color: black;
+  color: darkgoldenrod;
   margin: 0 auto; /* Center the input box horizontally */
   display: block; /* Ensure the margin:auto works */
 }
@@ -42,7 +42,6 @@ input[type="number"] {
   flex-direction: column;
   margin: auto;
   position: relative;
-  color: black;
 }
 
 .suggestions {
