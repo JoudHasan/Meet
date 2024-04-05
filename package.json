@@ -11,7 +11,7 @@
     "latest-version": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^3.0.1",
     "web-vitals": "^2.1.4",
     "workbox-background-sync": "^6.6.0",
     "workbox-broadcast-update": "^6.6.0",
@@ -55,7 +55,8 @@
   "devDependencies": {
     "gh-pages": "^6.1.1",
     "jest-cucumber": "^4.0.4",
-    "puppeteer": "^22.6.2"
+    "puppeteer": "^22.6.2",
+    "puppeteer-core": "^22.6.2"
   },
   "description": "MEET is an application that empowers users to discover events happening in various cities. Users can filter events by city, view event details, specify the number of events to display, use the app offline, add shortcuts to the home screen, and visualize event details through charts.",
   "main": "index.js",
