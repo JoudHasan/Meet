@@ -8,12 +8,20 @@ const MESSAGES_TO_IGNORE = [
   "The above error occurred",
 ];
 
+// Store a reference to the original console.error function
 const originalError = console.error.bind(console.error);
 
+// Override console.error to filter out specified warning messages
 console.error = (...args) => {
+  // Check if the current warning message matches any of the messages to ignore
   const ignoreMessage = MESSAGES_TO_IGNORE.find((message) =>
     args.toString().includes(message)
   );
-  if (!ignoreMessage) originalError(...args);
+  // If the message is not in the ignore list, output the warning
+  if (!ignoreMessage) {
+    originalError(...args);
+  }
 };
+
+// Optionally, set a custom timeout for all tests if needed
 jest.setTimeout(20000);
