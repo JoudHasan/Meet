@@ -1,37 +1,32 @@
-import { render, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import NumberOfEvents from "../components/NumberOfEvents";
 import App from "../App";
 
 describe("<NumberOfEvents /> component", () => {
-  let NumberOfEventsComponent;
-  beforeEach(() => {
-    NumberOfEventsComponent = render(
+  test("renders number of events text input", () => {
+    render(
       <NumberOfEvents setCurrentNOE={() => {}} setErrorAlert={() => {}} />
     );
-  });
-
-  test("renders number of events text input", () => {
-    const numberTextBox = NumberOfEventsComponent.getByTestId(
-      "numberOfEventsInput"
-    );
+    const numberTextBox = screen.getByTestId("numberOfEventsInput");
     expect(numberTextBox).toBeInTheDocument();
     expect(numberTextBox).toHaveClass("textboxNumber");
   });
 
   test("default value of the input field is 32", () => {
-    const numberTextBox = NumberOfEventsComponent.getByTestId(
-      "numberOfEventsInput"
+    render(
+      <NumberOfEvents setCurrentNOE={() => {}} setErrorAlert={() => {}} />
     );
+    const numberTextBox = screen.getByTestId("numberOfEventsInput");
     expect(numberTextBox).toHaveValue("32");
   });
 
   test("value changes accordingly when user types", async () => {
-    const user = userEvent.setup();
-    const numberInput = NumberOfEventsComponent.getByTestId(
-      "numberOfEventsInput"
+    render(
+      <NumberOfEvents setCurrentNOE={() => {}} setErrorAlert={() => {}} />
     );
-    await user.type(numberInput, "{backspace}{backspace}10");
+    const numberInput = screen.getByTestId("numberOfEventsInput");
+    await userEvent.type(numberInput, "{backspace}{backspace}10");
     expect(numberInput).toHaveValue("10");
   });
 });
@@ -39,17 +34,16 @@ describe("<NumberOfEvents /> component", () => {
 // Integration testing
 describe("<NumberOfEvents /> integration", () => {
   test("user can change the number of events displayed", async () => {
-    const user = userEvent.setup();
-    const AppComponent = render(<App />);
-    const AppDOM = AppComponent.container.firstChild;
+    render(<App />);
+    const AppDOM = screen.getByTestId("app");
 
-    const NumberOfEventsDOM = AppDOM.querySelector("#number-of-events");
+    const NumberOfEventsDOM = within(AppDOM).getByTestId("number-of-events");
     const numberOfEventsInput = within(NumberOfEventsDOM).getByTestId(
       "numberOfEventsInput"
     );
-    await user.type(numberOfEventsInput, "{backspace}{backspace}10");
+    await userEvent.type(numberOfEventsInput, "{backspace}{backspace}10");
 
-    const EventListDOM = AppDOM.querySelector("#event-list");
+    const EventListDOM = within(AppDOM).getByTestId("event-list");
 
     const allRenderedEventItems =
       within(EventListDOM).queryAllByRole("listitem");
