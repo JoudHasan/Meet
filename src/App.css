@@ -1,35 +1,42 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
 
+/* Body styles */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f5f7fa; /* Light blue-gray background */
+  color: #333; /* Dark gray text */
+}
+
+/* Container styles */
 .App {
   text-align: center;
   padding: 2% 5%;
-  background-color: white;
-  color: green;
 }
 
-.App * {
-  box-sizing: border-box;
-}
-
-ul {
-  padding: 10%;
-  list-style: none;
-}
-
-p {
-  margin: 5px 0;
-}
-
-/* Styling Input Fields with CSS */
-input[type="text"],
-input[type="number"] {
-  padding: 10px;
+/* Input field styles */
+input[type="text"] {
+  padding: 14px;
   border-radius: 8px;
   outline: none;
   border: 2px solid #ccc;
-  font-size: 16px;
-  line-height: 24px;
-  height: 48px;
+  font-size: 18px;
+  line-height: 26px;
+  height: 56px;
+  background-color: #f5f5f5;
+  color: #333;
+  margin: 10px auto; /* Center the input box horizontally */
+  display: block; /* Ensure the margin:auto works */
+  transition: border-color 0.3s ease;
+}
+
+input[type="number"] {
+  padding: 8px;
+  border-radius: 8px;
+  outline: none;
+  border: 2px solid #ccc;
+  font-size: 14px;
+  line-height: 10px;
+  height: 25px;
   background-color: #f5f5f5;
   color: #333;
   margin: 10px auto; /* Center the input box horizontally */
@@ -50,59 +57,70 @@ input[type="number"]:focus {
   box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
 }
 
-.city {
-  width: 250px;
-}
-
+/* Suggestions styles */
 #city-search {
   display: flex;
   flex-direction: column;
   margin: auto;
   position: relative;
 }
+
 .suggestions {
   width: 250px;
   position: absolute;
-  top: 45px;
+  top: 50px;
   z-index: 2;
   align-self: center;
   margin: 0;
   padding: 0;
   list-style: none;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  background-color: #ffffff; /* White background */
+  border: 1px solid #d8e1f0; /* Light blue border */
+  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .suggestions li {
-  padding: 10px;
+  padding: 12px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  color: #555; /* Dark gray text */
 }
 
 .suggestions li:hover {
-  background-color: #f0f0f0;
+  background-color: #f5f5f5; /* Light gray background on hover */
 }
 
+/* Event styles */
 .event {
-  padding: 10px 10px 35px;
-  margin-bottom: 10px;
+  padding: 24px;
+  margin-bottom: 20px;
   text-align: left;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 2px solid #d8e1f0; /* Light blue border */
+  border-radius: 12px;
+  background-color: #ffffff; /* White background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
 .details-btn {
   position: absolute;
-  right: 5px;
-  bottom: 5px;
-  padding: 5px 8px;
-  border-radius: 4px;
+  right: 16px;
+  bottom: 16px;
+  padding: 10px 16px;
+  border-radius: 8px;
   outline: none;
   cursor: pointer;
+  background-color: #6ac0ff; /* Light blue button color */
+  color: #ffffff; /* White text color */
+  border: none;
+  transition: background-color 0.3s ease;
 }
+
+.details-btn:hover {
+  background-color: #4d90fe; /* Darker blue on hover */
+}
+
 .alerts-container {
   position: fixed;
   top: 0px;
