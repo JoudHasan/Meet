@@ -42,7 +42,7 @@ const App = () => {
   }, [currentCity, currentNOE, fetchData]);
 
   return (
-    <div className="App">
+    <div className="App" data-testid="app">
       <h1>Meet App</h1>
       <div className="alerts-container">
         {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}

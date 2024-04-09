@@ -13,7 +13,7 @@ const NumberOfEvents = ({ setCurrentNOE, setErrorAlert }) => {
   };
 
   return (
-    <div id="number-of-events">
+    <div id="number-of-events" data-testid="number-of-events">
       <input
         data-testid="numberOfEventsInput"
         type="text"

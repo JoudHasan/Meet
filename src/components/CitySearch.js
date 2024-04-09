@@ -38,7 +38,7 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
   }, [allLocations]);
 
   return (
-    <div id="city-search">
+    <div id="city-search" data-testid="city-search">
       <input
         type="text"
         className="city"
