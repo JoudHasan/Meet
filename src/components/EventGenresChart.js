@@ -5,10 +5,6 @@ const EventGenresChart = ({ events }) => {
   const [data, setData] = useState([]);
   const genres = ["React", "JavaScript", "Node", "jQuery", "Angular"];
 
-  useEffect(() => {
-    setData(getData());
-  }, [`${events}`]);
-
   const getData = () => {
     const data = genres.map((genre) => {
       const filteredEvents = events.filter((event) =>
@@ -21,6 +17,10 @@ const EventGenresChart = ({ events }) => {
     });
     return data;
   };
+
+  useEffect(() => {
+    setData(getData());
+  }, [`${events}`]);
 
   return (
     <div style={{ width: "100%", height: 300 }}>
