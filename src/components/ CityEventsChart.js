@@ -25,7 +25,7 @@ const CityEventsChart = ({ allLocations, events }) => {
 
   useEffect(() => {
     setData(getData());
-  }, [`${events}`]);
+  }, [`${(data, events)}`]);
 
   return (
     <ResponsiveContainer width="99%" height={400}>
