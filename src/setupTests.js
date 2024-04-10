@@ -22,6 +22,21 @@ console.error = (...args) => {
     originalError(...args);
   }
 };
+const { ResizeObserver } = window;
 
+beforeEach(() => {
+  //@ts-ignore
+  delete window.ResizeObserver;
+  window.ResizeObserver = jest.fn().mockImplementation(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn(),
+  }));
+});
+
+afterEach(() => {
+  window.ResizeObserver = ResizeObserver;
+  jest.restoreAllMocks();
+});
 // Optionally, set a custom timeout for all tests if needed
 jest.setTimeout(20000);
