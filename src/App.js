@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import CitySearch from "./components/CitySearch";
+import CityEventsChart from "./components/ CityEventsChart";
 import EventList from "./components/EventList";
 import NumberOfEvents from "./components/NumberOfEvents";
 import { extractLocations, getEvents } from "./api";
@@ -42,12 +43,12 @@ const App = () => {
   }, [currentCity, currentNOE, fetchData]);
 
   return (
-    <div className="App" data-testid="app">
+    <div className="App">
       <h1>Meet App</h1>
       <div className="alerts-container">
         {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}
-        {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
         {warningAlert.length ? <WarningAlert text={warningAlert} /> : null}
+        {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
       </div>
       <CitySearch
         allLocations={allLocations}
@@ -58,6 +59,7 @@ const App = () => {
         setCurrentNOE={setCurrentNOE}
         setErrorAlert={setErrorAlert}
       />
+      <CityEventsChart allLocations={allLocations} events={events} />
       <EventList events={events} />
     </div>
   );
